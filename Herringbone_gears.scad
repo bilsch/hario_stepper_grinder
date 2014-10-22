@@ -8,8 +8,6 @@
 use <inc/mendel_misc.inc>
 use <inc/parametric_involute_gear_v5.0.scad>
 
-//WadesL(); //this module call will make the large gear
-//WadesS();  //this module call will make the small gear
 WadeL_double_helix();
 //WadesS_double_helix();
 
@@ -23,38 +21,41 @@ module WadeL_double_helix(){
 	twist=200;
 	height=11;
 	pressure_angle=30;
+   hub_diameter = 110;
+   hub_thickness = 5;
 
 	difference(){
 		union(){
-		gear (number_of_teeth=teeth,
-			circular_pitch=pitch,
-			pressure_angle=pressure_angle,
+		gear (number_of_teeth = teeth,
+			circular_pitch = pitch,
+			pressure_angle = pressure_angle,
 			clearance = 0.2,
-			gear_thickness =0,// height/2*0.5,
+			gear_thickness = height/2*0.5,
 			rim_thickness = height/2,
 			rim_width = 5,
-			hub_thickness = height/2*1.5,
-			hub_diameter = 25,
-			bore_diameter = 8,
+			hub_thickness = 0, // height/2*1.5,
+			hub_diameter = hub_diameter,
+			bore_diameter = 6,
 			circles=circles,
 			twist = twist/teeth);
 		mirror([0,0,1])
-		gear (number_of_teeth=teeth,
-			circular_pitch=pitch,
-			pressure_angle=pressure_angle,
+		gear (number_of_teeth = teeth,
+			circular_pitch = pitch,
+			pressure_angle = pressure_angle,
 			clearance = 0.2,
 			gear_thickness = height/2,
 			rim_thickness = height/2,
 			rim_width = 5,
-			hub_thickness = height/2,
-			hub_diameter=25,
-			bore_diameter=8,
-			circles=circles,
-			twist=twist/teeth);
+			hub_thickness = 0, // height/2,
+			hub_diameter = hub_diameter,
+			bore_diameter = 6,
+			circles = circles,
+			twist = twist/teeth);
 		}
-
+/*
        translate([0,-8,6]) cube([5.5,2.3,9],center = true);
-       translate([0,0,5])rotate([0,90,-90])cylinder(r=1.7,h=20);
+       translate([0,0,5]) rotate([0,90,-90]) cylinder(r=1.7,h=20);
+*/
 	}
 }
 
